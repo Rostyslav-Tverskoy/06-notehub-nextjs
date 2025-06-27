@@ -4,7 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import styles from "./header.module.css"
 import css from "./footer.module.css"
-import TanStackProvider from "./components/TanStackProvider/TanStackProvider";
+import TanStackProvider from "../components/TanStackProvider/TanStackProvider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

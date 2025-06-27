@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import NoteList from '../components/NoteList/NoteList';
-import Pagination from '../components/Pagination/Pagination';
-import SearchBox from '../components/SearchBox/SearchBox';
-import NoteModal from '../components/NoteModal/NoteModal';
+import NoteList from '../../components/NoteList/NoteList';
+import Pagination from '../../components/Pagination/Pagination';
+import SearchBox from '../../components/SearchBox/SearchBox';
+import NoteModal from '../../components/NoteModal/NoteModal';
 import styles from './App.module.css';
 import { useDebounce } from 'use-debounce';
-import { fetchNotes } from '../lib/api';
-import type { Note } from '../types/note';
+import { fetchNotes } from '../../lib/api';
+import type { Note } from '../../types/note';
 
 const App = () => {
   const [page, setPage] = useState<number>(1);
