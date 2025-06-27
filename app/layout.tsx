@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import styles from "./header.module.css"
-import css from "./footer.module.css"
 import TanStackProvider from "../components/TanStackProvider/TanStackProvider"
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,32 +30,9 @@ export default function RootLayout({
        
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
-        <header className={styles.header}>
-      <Link href="/" aria-label="Home">NoteHub</Link>
-      <nav aria-label="Main Navigation">
-        <ul className={styles.navigation}>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/notes">Notes</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+        <Header />
         {children}
-        <footer className={css.footer}>
-  <div className={css.content}>
-    <p>© {new Date().getFullYear()} NoteHub. All rights reserved.</p>
-    <div className={css.wrap}>
-      <p>Developer: your name</p>
-      <p>
-        Contact us:
-        <Link href="<mailto:student@notehub.app>">student@notehub.app</Link>
-      </p>
-    </div>
-  </div>
-</footer>
+        <Footer />
 </TanStackProvider>
       </body>
     </html>
