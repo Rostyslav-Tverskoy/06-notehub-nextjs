@@ -53,7 +53,7 @@ export default function RootLayout({
       <p>Developer: your name</p>
       <p>
         Contact us:
-        <a href="<mailto:student@notehub.app>">student@notehub.app</a>
+        <Link href="<mailto:student@notehub.app>">student@notehub.app</Link>
       </p>
     </div>
   </div>
