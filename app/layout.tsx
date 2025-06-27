@@ -32,15 +32,14 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
         <header className={styles.header}>
-      <Link href="/" aria-label="Home"/>
-        NoteHub
+      <Link href="/" aria-label="Home">NoteHub</Link>
       <nav aria-label="Main Navigation">
         <ul className={styles.navigation}>
           <li>
             <Link href="/">Home</Link>
           </li>
           <li>
-            <a href="/notes">Notes</a>
+            <Link href="/notes">Notes</Link>
           </li>
         </ul>
       </nav>
