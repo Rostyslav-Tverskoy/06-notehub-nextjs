@@ -1,19 +1,31 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import NoteList from '../../components/NoteList/NoteList';
-import Pagination from '../../components/Pagination/Pagination';
-import SearchBox from '../../components/SearchBox/SearchBox';
-import NoteModal from '../../components/NoteModal/NoteModal';
-import styles from './App.module.css';
-import { useDebounce } from 'use-debounce';
-import { fetchNotes } from '../../lib/api';
-import type { Note } from '../../types/note';
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import NoteList from "../../components/NoteList/NoteList";
+import Pagination from "../../components/Pagination/Pagination";
+import SearchBox from "../../components/SearchBox/SearchBox";
+import NoteModal from "../../components/NoteModal/NoteModal";
+import styles from "./App.module.css";
+import { useDebounce } from "use-debounce";
+import { fetchNotes } from "../../lib/api";
+import type { Note } from "../../types/note";
 
-const App = () => {
-  const [page, setPage] = useState<number>(1);
-  const [search, setSearch] = useState<string>('');
+interface NotesClientProps {
+  initialNotes: Note[];
+  initialPage: number;
+  initialSearch: string;
+  totalPages: number;
+}
+
+const NotesClient: React.FC<NotesClientProps> = ({
+  initialNotes,
+  initialPage,
+  initialSearch,
+  totalPages,
+}) => {
+  const [page, setPage] = useState<number>(initialPage);
+  const [search, setSearch] = useState<string>(initialSearch);
   const [debouncedSearch] = useDebounce(search, 500);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -25,10 +37,12 @@ const App = () => {
     notes: Note[];
     totalPages: number;
   }>({
-    queryKey: ['notes', debouncedSearch, page],
+    queryKey: ["notes", debouncedSearch, page],
     queryFn: () => fetchNotes({ search: debouncedSearch, page }),
-    enabled: debouncedSearch.length >= 0,
-    placeholderData: keepPreviousData,
+    initialData: {
+      notes: initialNotes,
+      totalPages,
+    },
   });
 
   const handleSearchChange = (value: string) => {
@@ -43,7 +57,7 @@ const App = () => {
     <div className={styles.app}>
       <header className={styles.toolbar}>
         <SearchBox value={search} onChange={handleSearchChange} />
-        {data?.totalPages && data?.totalPages > 1 && (
+        {data.totalPages > 1 && (
           <Pagination
             page={page}
             pageCount={data.totalPages}
@@ -55,7 +69,7 @@ const App = () => {
         </button>
       </header>
 
-      {data?.totalPages && data?.notes.length > 0 && (
+      {data.notes.length > 0 && (
         <NoteList
           notes={data.notes}
           isLoading={isLoading}
@@ -69,4 +83,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default NotesClient;

@@ -3,7 +3,7 @@ import styles from './Pagination.module.css';
 
 interface PaginationProps {
   page: number;
-  pageCount: number;       
+  pageCount: number;
   onChange: (page: number) => void;
 }
 

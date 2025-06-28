@@ -3,6 +3,6 @@ export interface Note {
   title: string;
   content: string;
   tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
-  updatedAt?: string;
-  createdAt?: string;
+  updatedAt: string;
+  createdAt: string;
 }

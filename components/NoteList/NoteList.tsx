@@ -11,14 +11,19 @@ interface NoteListProps {
   isSuccess: boolean;
 }
 
-const NoteList = ({ notes }: NoteListProps) => {
+const NoteList = ({ notes, isLoading, isError, isSuccess }: NoteListProps) => {
   const queryClient = useQueryClient();
+
   const deleteMutation = useMutation({
-    mutationFn: deleteNote,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notes'] }),
+    mutationFn: (id: number) => deleteNote(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
+    },
   });
 
-  if (!notes.length) return null;
+  if (isLoading) return <p>Loading notes...</p>;
+  if (isError) return <p>Failed to load notes.</p>;
+  if (!isSuccess || notes.length === 0) return <p>No notes found.</p>;
 
   return (
     <ul className={styles.list}>
