@@ -3,16 +3,14 @@ import * as Yup from 'yup';
 import styles from './NoteForm.module.css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createNote } from '../../lib/api';
+import { Note } from '@/types/note';
 
 interface NoteFormProps {
   onSuccess: () => void;
 }
 
-type NoteFormValues = {
-  title: string;
-  content: string;
-  tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
-};
+type NoteFormValues = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>;
+
 
 const validationSchema = Yup.object({
   title: Yup.string().min(3).max(50).required('Title is required'),

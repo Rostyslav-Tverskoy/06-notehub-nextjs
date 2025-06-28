@@ -41,7 +41,7 @@ export const fetchNotes = async ({
   return res.data;
 };
 
-export const createNote = async (note: Omit<Note, 'id'>): Promise<Note> => {
+export const createNote = async (note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>): Promise<Note> => {
   const res = await axios.post<Note>(API_BASE, note, { headers });
   return res.data;
 };
