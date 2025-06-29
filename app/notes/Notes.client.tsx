@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import NoteList from "../../components/NoteList/NoteList";
 import Pagination from "../../components/Pagination/Pagination";
 import SearchBox from "../../components/SearchBox/SearchBox";
@@ -39,6 +39,7 @@ const NotesClient: React.FC<NotesClientProps> = ({
   }>({
     queryKey: ["notes", debouncedSearch, page],
     queryFn: () => fetchNotes({ search: debouncedSearch, page }),
+    placeholderData: keepPreviousData,
     initialData: {
       notes: initialNotes,
       totalPages,
